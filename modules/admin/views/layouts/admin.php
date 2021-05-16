@@ -29,8 +29,8 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandLabel' => 'Админ Панель',
+        'brandUrl' => ['/admin/index'],
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -38,10 +38,9 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Дом', 'url' => ['/site/index']],
-            ['label' => 'О', 'url' => ['/site/about']],
-            ['label' => 'Контакт', 'url' => ['/site/contact']],
+            ['label' => 'Основной сайт', 'url' => ['/site/index']],
             ['label' => 'Запрос', 'url' => ['admin/request/index']],
+            ['label' => 'Категория', 'url' => ['admin/category/index']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
