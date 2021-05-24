@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\modules\admin\models\Request;
+use app\modules\admin\models\RequestSearch;
 use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
@@ -63,8 +64,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $request = Request::find()->where(['status' => Решена])->limit(4)->orderBy('created_at DESC')->all();
-        return $this->render('index', ['request' => $request]);
+        $searchModel = new RequestSearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['created_by'=> \Yii::$app->user->id])->orderBy('created_at DESC '); // Выбор всех записей текущего рпользователя и сортировка
+        // echo '<pre>';
+        // print_r($dataProvider);
+        // echo '</pre>';
+        // die();
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

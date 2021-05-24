@@ -15,10 +15,6 @@ $this->title = 'Проектик';
     <div class="body-content">
 
         <div class="row">
-            <? foreach ($request as $key) : ?>
-                <?= $key->name ?>
-                <?= \yii\helpers\Html::img($key->before_img, ['width' => 100]); ?>
-            <? endforeach; ?>
         </div>
 
     </div>

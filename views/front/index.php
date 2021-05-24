@@ -1,16 +1,34 @@
 <?php
 
-use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\admin\models\RequestSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Requests';
+$this->title = 'Запросы';
 $this->params['breadcrumbs'][] = $this->title;
-
+$script = <<< JS
+$(document).ready(function() {
+    setInterval(function(){ $("#refreshButton").click();  }, 5000);
+});
+JS;
+$this->registerJs($script);
 ?>
+<div class="request-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Create Request', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+    <?php \yii\widgets\Pjax::begin(); ?>
+        <?= Html::a("Обновить", ['front/index'], ['class' => 'btn btn-lg btn-primary', 'id'=> "refreshButton"]) ?>
+        <h1>Количество рещенных заявок: <?= $count?></h1>
+    <?php \yii\widgets\Pjax::end(); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
